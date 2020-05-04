@@ -1,0 +1,826 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{nominal\_attribute}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{本实验选取了wine}\PY{o}{\PYZhy{}}\PY{n}{reviews数据集作为实验样本}\PY{err}{，}\PY{n}{本文档主要是对该数据集中的标称属性进行分析并获取其各聚会的频数}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}读取数据文件}
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{dataset}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{wine\PYZhy{}reviews}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{winemag\PYZhy{}data\PYZus{}first150k.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{usecols}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{designation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{province}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{}获取对应标称属性列的series并进行计数统计 以下各段代码同理}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+US                        62397
+Italy                     23478
+France                    21098
+Spain                      8268
+Chile                      5816
+Argentina                  5631
+Portugal                   5322
+Australia                  4957
+New Zealand                3320
+Austria                    3057
+Germany                    2452
+South Africa               2258
+Greece                      884
+Israel                      630
+Hungary                     231
+Canada                      196
+Romania                     139
+Slovenia                     94
+Uruguay                      92
+Croatia                      89
+Bulgaria                     77
+Moldova                      71
+Mexico                       63
+Turkey                       52
+Georgia                      43
+Lebanon                      37
+Cyprus                       31
+Brazil                       25
+Macedonia                    16
+Serbia                       14
+Morocco                      12
+Luxembourg                    9
+England                       9
+India                         8
+Lithuania                     8
+Czech Republic                6
+Ukraine                       5
+Switzerland                   4
+Bosnia and Herzegovina        4
+South Korea                   4
+Egypt                         3
+Slovakia                      3
+China                         3
+Tunisia                       2
+Japan                         2
+Montenegro                    2
+Albania                       2
+US-France                     1
+Name: country, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A little bit funky and unsettled when you pop the screwcap, but soon it finds its floral, blueberry base. Remains superficial and sweet in the mouth, with candied flavors, vanilla and mild oak. Highly regular; could use more concentration and density.                                                                                                                                                    6
+Powerful in Zinny character, this blend of Dry Creek and Russian River grapes bursts with brawny flavors of wild berries, chocolate-covered mint, tobacco and pepper, wrapped into sturdy tannins. Shows real class and character.                                                                                                                                                                             6
+92-94 Barrel sample. A rounded wine, its tannins submerged into the ripe fruits. It feels soft, and there is just a bite of alcohol. The structure is soft, generous, opulent.                                                                                                                                                                                                                                 6
+86-88 This could work as a rich wine, because there is good structure and piles of botrytis. It could be delicious, with its lovely dry finish, but that's for the future.                                                                                                                                                                                                                                     6
+Gibilmoro, a pure expression of Nero d'Avola, sees some oak aging to shape aromas of toasted walnut, nutella and wood spice. In fact, not much of the natural fruit is left, and what is there feels jammy and ripe.                                                                                                                                                                                           5
+Sweet cherry and baking vanilla aromas are followed by layers of plum, raspberry and spice in this kosher Bordeaux blend from Israel. The wine offers firm tannins and a lingering finish.                                                                                                                                                                                                                     5
+The wine is redolent of bright blueberry and cherry with a tonic, youthful berry feel in the mouth. This easy blend of Cabernet Sauvignon (60\%), Syrah and Cabernet Franc would make the perfect companion to pizza or pasta.                                                                                                                                                                                  4
+You would be hard-pressed to guess the varietal in a blind tasting—it's generic red, almost 15\% alcohol, cherry fruit, astringent tannins, some black olive and licorice. Quite drinkable but nondescript.                                                                                                                                                                                                     4
+Opens with a load of sweet, candied black-fruit aromas but this wine excels on the nose because it's composed and precise for being so young and simple in scope. Velvety, rich black-cherry flavors run the show, and the finish brings length and an herbal shading. Very nice for a wine from Toro at this price.                                                                                           4
+Straightforward, leesy, fresh, simple Pinot Blanc, with a mix of jicama, celery and yellow apple flavors. There's a bit of cinnamon spice in the finish; this is a good, everyday sipping wine.                                                                                                                                                                                                                4
+Medium-bodied and supple in texture, this dark and brambly Virginian Merlot offers plenty of black fruit and warm, savory spices. Aged in a combination of American and Hungarian oak, there's a slightly reedy, wooden note and high-toned acidity on the finish.                                                                                                                                             4
+Lots of jammy blackberry, blueberry and cherry fruit in this dry Merlot. It's a little rough in the mouth, with pronounced acidity and some green flavors. Drink now.                                                                                                                                                                                                                                          4
+With its definite spritz, this is light, just off-dry Vinho Verde. It has vibrant green fruits, although the yeast character is perhaps too dominant.                                                                                                                                                                                                                                                          4
+Good flavors of citrus, peach, spice and toast in this classic blend of Chardonnay, Pinot Noir and Pinot Meunier. It's dry, but rough in the mouth, with a scoury finish.                                                                                                                                                                                                                                      4
+Yellow/gold, lightly honeyed, with a yeasty character. Peach pit and nectarine, with a finishing touch of Meyer lemon, add length and some complexity. Drink soon.                                                                                                                                                                                                                                             4
+This is an impressive, oak-aged expression of Vermentino in a world that usually sees this variety fermented in a simple, fresh manner. This wine has a bigger ideal in mind: To be an important Italian white and it achieves its objective beautifully. Pair it with lobster or white meat.                                                                                                                  4
+A simple wine with a crisp and clean mouthfeel. There are plenty of bright fruit aromas to keep your interest. Try this wine with Margherita pizza or easy pasta with tomato sauce.                                                                                                                                                                                                                            4
+A balanced Malbec with red fruit aromas and just a touch of aged cheese on the nose. The palate is creamy and slightly candied, with layered black fruit, fig and chocolate flavors. Creamy and candied but lively on the finish, with enough integrity and structure to rank as a Best Buy.                                                                                                                   4
+This is all tannin, bitter chocolate and a dense texture. It seems to be drying out as the fruit goes, while there are few signs of softening. It suffers from the heat of 2003.                                                                                                                                                                                                                               4
+A big, fruity bold wine, packed with the ripest fruit, concentrated and complex, with room for tight acidity. It has citrus and green plum crispness, and needs time to fully integrate with the wood and ripe yellow fruits.                                                                                                                                                                                  4
+A tightly tannic wine, with a firm feeling of wood, balanced by stalky black currant fruit and a layer of acidity. It is still young, with the tannins likely to soften.                                                                                                                                                                                                                                       4
+A good Chardonnay, rich and creamy in pineapple, lime, Asian pear, vanilla and new oak flavors. It's balanced with crisp acidity. Drink now.                                                                                                                                                                                                                                                                   4
+Here's a fresh and cheerful Sangiovese-based wine that shows bright berry tones and soft spice nuances. It proves a very food-friendly wine that would pair with pasta, light meat dishes or rolled pork roast.                                                                                                                                                                                                4
+Rich and full-bodied, this white has almond, peach and mango flavors. In the mouth, it feels rich and concentrated, the acidity slow to reveal itself.                                                                                                                                                                                                                                                         4
+From vines planted in 1958 in an appellation that straddles both Sonoma and Mendocino counties, this is an intriguing, interesting wine, mostly varietal, with 8\% each of Mourvèdre and Syrah. Floral, it veers into leather and game, with a juicy backbone of red cherry and berry and earthy, textured tannins.                                                                                             4
+Solid blackberry, black currant, bacon, black pepper and sandalwood flavors in this dry wine. The grapes come from a small appellation in Mendocino County. It's too soft, lacking structure, but has a certain opulence.                                                                                                                                                                                      4
+Dry tannins dominate this rough-edged wine. There are plenty of bitter cherry and cocoa flavors, while the acidity gives an attractive freshness. Those tannins need a year to settle down.                                                                                                                                                                                                                    4
+Shows the rich fruit, acidity and silky texture of Calera's spot on Mount Harlan, with cherry, cola and sweet sandalwood flavors. It's not as complex or concentrated as the single-vineyard bottlings, but is a good approximation.                                                                                                                                                                           4
+There are bitter tannins in this bone-dry wine. It's also thin in cherry and currant fruit. But it's clean, and at this price, a good, sound everyday sipper.                                                                                                                                                                                                                                                  4
+Attractive fruits with a good, juicy flavor characterize this easy, fresh wine. Black berry flavors and vivid acidity make it ready to drink now.                                                                                                                                                                                                                                                              4
+                                                                                                                                                                                                                                                                                                                                                                                                              ..
+While light in color, this rich wine is full of both fruit and tannin. It has real Pinot Noir cherry and strawberry flavors, lightened by cool acidity. The structure comes from the rich wood flavors and the complex tannins. Drink from 2015.                                                                                                                                                               1
+Dusty aromas blend with cool-climate notes of bell pepper and lime on this racy, green-leaning SB. Flavors of wet stones, lime and salt are crisp, while this finishes with a bell-pepper flavor and zesty acidity. This was made for raw oysters or ceviche.                                                                                                                                                  1
+A beautiful, classy Pinot Noir that shows the varietal purity that always comes from this well-regarded vineyard. Dry and firm in acidity, it shows flavors of mashed red cherries, black raspberries and cola, with hints of orange peel, violets, anise and pepper. Best now and through 2012.                                                                                                               1
+Creamy rose and peach puree notes create a very sensuous and seductive scent. The light-footed creaminess continues fluidly on the slender palate, helped along by a touch of flavor-boosting sweetness. But this is pervaded by freshness to finish off dry. Drink soon while flavors are at their peak.                                                                                                      1
+A bit more easygoing than the PX wines of Jerez, as it delivers white raisin, milk chocolate and brown-sugar aromas and flavors. The palate is far from aggressive; in fact, it's a little low in acidity, which results in a soft mouthfeel and a short finish. Excellent stuff; just not a classic.                                                                                                          1
+The acidity here is certainly the Chenin Blanc, but with the richness of Chardonnay in the mix, the wine has a full character, softly ripe, apples and pears dominant. It has a crisper feel at the end, bright and lively and ready to drink. Screwcap.                                                                                                                                                       1
+Passerina is a little-known grape from central Italy that offers good structure and density in the mouth. It's not necessarily aromatic, but it does offer tones of almond skin, butterscotch and Golden Delicious apple.                                                                                                                                                                                      1
+Ripe strawberry pie and cigar box aromas frame the nose on this top-end offering from Broken Earth. It's surprisingly light on the palate, with cherry pie and cranberry tartness leading the way alongside bright acidity and dainty tannins.                                                                                                                                                                 1
+This is a plump, succulent and slightly sweet wine that is a pleasure to drink and pair with easy foods such as meatloaf or roast pork. This Dolcetto opens with a vibrant ruby color and pretty aromas of blueberry and cherry.                                                                                                                                                                               1
+A powerful Pinot from a cool region. There's plenty of root beer, bacon, and cedar in the rustic, woody bouquet. And it will fill your mouth with cola, currants and black cherries, before leaving a thick and tasty residue on the back palate. A touch rambunctious and hot, so think about visiting it at this time next year.                                                                             1
+Deep, a touch rugged, and lively, with berry aromas accented by strong whiffs of citrus peel, especially lemon rind. Flavors of black raspberry and cassis are convincing, while the palate is textured, with smooth tannins and integrated acids. Balanced overall; one of this winery's best offerings to date.                                                                                              1
+Perfumed, floral wine, dominated by Moscatel grapes. The white fruits, pear and vivid acidity give the wine a fine, fruity balanced character.                                                                                                                                                                                                                                                                 1
+Rubbery berry, tea, cool mint, herb and savory aromas amount to something a bit funky. This Syrah feels chewy and tannic. Herbal, savory, soupy flavors finish with an infusion of tea-like influences on closing plum and berry fruit notes.                                                                                                                                                                  1
+Smoky, dark and alluring is how this modern-leaning Rioja starts out. The nose is meaty and ultraripe, but balanced. And so is the palate, which shows flavors of blackberry, cassis, tobacco, cola and coffee. The finish is cuddly and long, with a splinter of coconut and lots of spice. A “racimo” in Spanish is a bunch, so the name refers to the three or so grape bunches that each vine produces.    1
+Opens with a strong aroma of smoked meat and bacon, not bad, but indicative of brettanomyces in the winery. In the mouth are flavors of red and black cherries, with a spicy edge of clove.                                                                                                                                                                                                                    1
+Unusual for Bordeaux, this chateau's plantings contain 20\% Malbec, imparting a strong blackberry character to the wine. There's smoky oak, too, and intriguing spice and juiciness on the finish. Imported by Bernard Magrez.                                                                                                                                                                                  1
+Based on Tibouren, a red grape found in Provence, this is a perfumed wine that tastes of the regions herbs and lavender. Both warm and light, it has notes of spice, red plum and a delicate aftertaste.                                                                                                                                                                                                       1
+Likeable for its gentle, easy texture, silky tannins and ripely pleasant flavors of cola, cherries, coffee, spices and smoky oak. Almost the perfect restaurant by the glass wine, tasty and versatile.                                                                                                                                                                                                        1
+Elegant, savory and balanced, this opens with delicate orchard fruit, Mediterranean scrub and wet stone scents. The vibrant, ethereal palate delivers lemon, nectarine and pear fruit, buttressed by crisp acidity. A savory mineral note gives it a mouthwatering finish.                                                                                                                                     1
+High alcohol is giving this 100\% Cabernet some inherent instability that warrants against extended aging. However, if you drink it soon, you'll find a vastly rich, opulent wine, with blackberry jam, mocha and toasty oak flavors whose tannins reflect Napa's best. A fabulous steak, perfectly charred and prepared, will make you drain the bottle.                                                       1
+Here's a pretty Chianti from the Senesi hills, made in an easy-drinking style, with delicate floral aromas and a bright palate of cherry and strawberry. This should be enjoyed young and would pair beautifully with pastas and grilled chicken.                                                                                                                                                              1
+A 100\%-organic Chardonnay, stainless steel fermented and poured into a handy-dandy, also certified-organic AstraPouch (1.5 liter). This easy-to-bring-on-a-picnic wine is clean, balanced and simply drinkable with a note of sweet grapefruit and pineapple.                                                                                                                                                  1
+This wine is as lush as apricots, pineapples and peach juice, but with refreshing acidity. Ample honey and buttered-toast notes from oak give it warmth. It's a very good Chard for drinking now with rich shellfish dishes, or a buttery wild mushroom risotto.                                                                                                                                               1
+Ground pepper, tilled earth and black-skinned berry aromas all come together on this generous, full-bodied red. The fresh, delicious palate doles out ripe black cherry, black currant, licorice and clove alongside vibrant acidity and polished, fine-grained tannins.                                                                                                                                       1
+With really ripe fruit and juicy black flavors, this is a rounded, warm wine. It tastes of sun, although there is also something more seriously structured about it. Acidity gives freshness, while the tannic structure suggests further aging. Drink now, but better in 2015.                                                                                                                                1
+A bit tough and tannic, but noble enough in structure, this Mendocino mountain Syrah has bold plum, blackberry, mocha and herb flavors, and is very dry. It scores high on the deliciousness factor, and is at its best now and for a year or two.                                                                                                                                                             1
+This luxury cuvée rides close to the edge of being too ripe for its own good. It's full bodied and rich, boasting flavors of prune, chocolate and espresso framed by hints of toast and vanilla. The texture is supple, turning velvety on the finish, which makes it accessible now. Drink it over the next few years.                                                                                        1
+Ample black fruit along with mint and herbs make for a solid if unusual bouquet. It's fairly ripe and sweet to the taste, with bold cherry and raspberry flavors. Textured on the finish, with zest. The only negative is that it's rowdy and unrefined, but hey, that's rosso piceno. Imported by Empson (USA) Ltd.                                                                                           1
+A beautiful Cab, soft and luscious, with nuances that keep you coming back. Blackcurrant, cassis, coffee, green olive and smoky oak flavors are wrapped in easy tannins that finish smooth and gentle. Delicious. Drink now.                                                                                                                                                                                   1
+While the aromas are tight and firm, once it is in the mouth, this wine just explodes. The tannins are dark, almost impenetrable, dry and dense. These tannins are a layer over the fruit that just piles up with ripe blackberry juice, an edge of blueberry. The soft sweetness of this range of flavors continues on the finish, pitted against the tannins.                                                1
+Name: description, Length: 97821, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{designation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Reserve                                                                              2752
+Reserva                                                                              1810
+Estate                                                                               1571
+Barrel sample                                                                        1326
+Riserva                                                                               754
+Barrel Sample                                                                         639
+Brut                                                                                  624
+Crianza                                                                               503
+Estate Grown                                                                          449
+Estate Bottled                                                                        396
+Dry                                                                                   374
+Old Vine                                                                              331
+Gran Reserva                                                                          330
+Brut Rosé                                                                             248
+Extra Dry                                                                             244
+Vieilles Vignes                                                                       225
+Bien Nacido Vineyard                                                                  195
+Rosé                                                                                  180
+Late Bottled Vintage                                                                  171
+Réserve                                                                               166
+Late Harvest                                                                          161
+Unoaked                                                                               161
+Vintage                                                                               152
+Barrel Select                                                                         145
+Single Vineyard                                                                       144
+Tradition                                                                             141
+Grand Reserve                                                                         139
+Tinto                                                                                 128
+Old Vines                                                                             127
+Classic                                                                               123
+                                                                                     {\ldots} 
+Domaine Lois Louise Twisty Ridge                                                        1
+Broken Compass                                                                          1
+Appellation Series Heritage Clones                                                      1
+Lakeside Ranch                                                                          1
+Follies Casa da Aguieira                                                                1
+Duemilaotto Metodo Classico                                                             1
+Te Kahu Gimblett Gravels Vineyard Merlot-Cabernet Franc-Cabernet Sauvignon-Malbec       1
+Destiny Ridge Vineyard Block 20                                                         1
+Vista Rosé                                                                              1
+Terrale                                                                                 1
+Sal'mon                                                                                 1
+DeCasta Rosado                                                                          1
+Austrian Plum                                                                           1
+Hollerin Smaragd                                                                        1
+Domaine Saint Nabor Gris de Nabor                                                       1
+Champs Perdrix                                                                          1
+Terre d'Agala                                                                           1
+Austrian Apple                                                                          1
+Pietraincatenata                                                                        1
+Cupatge d'Honor Brut                                                                    1
+Blanc dels Aspres                                                                       1
+Red4                                                                                    1
+Estate Grown Diplomat                                                                   1
+Kremser Tor Alte Reben Reserve                                                          1
+Mahra Bogazkere-Öküzgözü                                                                1
+Montepulciano-Sangiovese                                                                1
+Les Chante Alouettes                                                                    1
+Nuna Estate                                                                             1
+Monte Sereno                                                                            1
+Sainte-Epine                                                                            1
+Name: designation, Length: 30621, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{province}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+California                                44508
+Washington                                 9750
+Tuscany                                    7281
+Bordeaux                                   6111
+Northern Spain                             4892
+Mendoza Province                           4742
+Oregon                                     4589
+Burgundy                                   4308
+Piedmont                                   4093
+Veneto                                     3962
+South Australia                            3004
+Sicily \& Sardinia                          2545
+New York                                   2428
+Northeastern Italy                         1982
+Loire Valley                               1786
+Alsace                                     1680
+Marlborough                                1655
+Southwest France                           1601
+Central Italy                              1530
+Southern Italy                             1439
+Champagne                                  1370
+Catalonia                                  1352
+Rhône Valley                               1318
+Colchagua Valley                           1201
+Languedoc-Roussillon                       1082
+Douro                                      1075
+Provence                                   1021
+Port                                        903
+Maipo Valley                                895
+Other                                       889
+                                          {\ldots}  
+Morocco                                       1
+Terasele Dunarii                              1
+Central Greece                                1
+Ilia                                          1
+Douro Superior                                1
+Lemnos                                        1
+Serra do Sudeste                              1
+Malgas                                        1
+Viile Carasului                               1
+Ticino                                        1
+Neuchâtel                                     1
+Valais                                        1
+Central Otago-Marlborough                     1
+Langenlois                                    1
+Colares                                       1
+Waitaki Valley                                1
+Pannon                                        1
+San Clemente                                  1
+Rose Valley                                   1
+Dalmatian Coast                               1
+Pocerina                                      1
+Cape South Coast                              1
+Viile Timis                                   1
+Dolenjska                                     1
+Casablanca-Curicó Valley                      1
+Martinborough Terrace                         1
+Zitsa                                         1
+Colchagua Costa                               1
+Beni M'Tir                                    1
+Vino da Tavola della Svizzera Italiana        1
+Name: province, Length: 455, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Napa Valley                              6209
+Columbia Valley (WA)                     4975
+Mendoza                                  3586
+Russian River Valley                     3571
+California                               3462
+Paso Robles                              3053
+Willamette Valley                        2096
+Rioja                                    1893
+Toscana                                  1885
+Sonoma County                            1853
+Brunello di Montalcino                   1746
+Sicilia                                  1701
+Alsace                                   1574
+Sonoma Coast                             1473
+Carneros                                 1458
+Dry Creek Valley                         1398
+Barolo                                   1398
+Finger Lakes                             1372
+Champagne                                1369
+Santa Barbara County                     1319
+Walla Walla Valley (WA)                  1225
+Yakima Valley                            1162
+Alexander Valley                         1139
+Chianti Classico                         1029
+Sta. Rita Hills                           983
+Sonoma Valley                             971
+Santa Lucia Highlands                     962
+Central Coast                             950
+Ribera del Duero                          899
+Santa Ynez Valley                         898
+                                         {\ldots} 
+Vin de Pays de Caux                         1
+Colline Teramane                            1
+Niagara Escarpment                          1
+Erbaluce di Caluso                          1
+Galluccio                                   1
+Catamarca                                   1
+Mazoyeres-Chambertin                        1
+Mâcon-Uchizy                                1
+Mendocino-Amador-Napa                       1
+Corton Perrières                            1
+Rasteau                                     1
+Gard                                        1
+Ramandolo                                   1
+Napa County-Sonoma County-Lake County       1
+Mitterberg                                  1
+Napa-Sonoma-Marin                           1
+Sonoma County-Lake County                   1
+Sonoma-Santa Barbara-Mendocino              1
+Arribes del Duero                           1
+Del Veneto                                  1
+Asolo Prosecco Superiore                    1
+Vin de Pays de l'Ile de Beauté              1
+Bellarine Peninsula                         1
+Malibu Coast                                1
+Côtes de Bordeaux Francs                    1
+Muscadet Sèvre et Maine Clisson             1
+Vin de Pays des Côtes de Thongue            1
+Chignin-Bergeron                            1
+Gambellara Classico                         1
+Medrano                                     1
+Name: region\_1, Length: 1236, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Central Coast              13057
+Sonoma                     11258
+Columbia Valley             9157
+Napa                        8801
+California Other            3516
+Willamette Valley           3181
+Mendocino/Lake Counties     2389
+Sierra Foothills            1660
+Napa-Sonoma                 1645
+Finger Lakes                1510
+Central Valley              1115
+Long Island                  771
+Southern Oregon              662
+Oregon Other                 661
+North Coast                  632
+Washington Other             593
+South Coast                  198
+New York Other               147
+Name: region\_2, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Chardonnay                        14482
+Pinot Noir                        14291
+Cabernet Sauvignon                12800
+Red Blend                         10062
+Bordeaux-style Red Blend           7347
+Sauvignon Blanc                    6320
+Syrah                              5825
+Riesling                           5524
+Merlot                             5070
+Zinfandel                          3799
+Sangiovese                         3345
+Malbec                             3208
+White Blend                        2824
+Rosé                               2817
+Tempranillo                        2556
+Nebbiolo                           2241
+Portuguese Red                     2216
+Sparkling Blend                    2004
+Shiraz                             1970
+Corvina, Rondinella, Molinara      1682
+Rhône-style Red Blend              1505
+Barbera                            1365
+Pinot Gris                         1365
+Cabernet Franc                     1363
+Sangiovese Grosso                  1346
+Pinot Grigio                       1305
+Viognier                           1263
+Bordeaux-style White Blend         1261
+Champagne Blend                    1238
+Port                               1058
+                                  {\ldots}  
+Silvaner-Traminer                     1
+Listán Negro                          1
+Muscat Hamburg                        1
+Dafni                                 1
+Kuntra                                1
+Merlot-Petite Verdot                  1
+Pardina                               1
+Torontel                              1
+Sauvignonasse                         1
+St. Vincent                           1
+Parraleta                             1
+Ruen                                  1
+Cabernet Moravia                      1
+Pinot Grigio-Sauvignon Blanc          1
+Sarba                                 1
+Sauvignon Blanc-Sauvignon Gris        1
+Pinotage-Merlot                       1
+Chardonelle                           1
+Petit Meslier                         1
+Rebula                                1
+Pinela                                1
+Carnelian                             1
+Baga-Touriga Nacional                 1
+Malbec-Petit Verdot                   1
+Irsai Oliver                          1
+Terret Blanc                          1
+Tempranillo-Malbec                    1
+Aidani                                1
+Azal                                  1
+Chardonel                             1
+Name: variety, Length: 632, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{count} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Williams Selyem                374
+Testarossa                     274
+DFJ Vinhos                     258
+Chateau Ste. Michelle          225
+Columbia Crest                 217
+Kendall-Jackson                216
+Concha y Toro                  216
+Trapiche                       205
+Bouchard Père \& Fils           203
+Kenwood                        191
+Joseph Drouhin                 189
+De Loach                       189
+Georges Duboeuf                188
+Cameron Hughes                 172
+Wines \& Winemakers             169
+Albert Bichot                  167
+Robert Mondavi                 166
+Louis Latour                   154
+D'Arenberg                     153
+Dry Creek Vineyard             153
+Morgan                         153
+Concannon                      151
+Martin Ray                     149
+Errazuriz                      148
+Gary Farrell                   144
+L'Ecole No. 41                 144
+Olivier Leflaive               143
+Waterbrook                     142
+Iron Horse                     142
+Montes                         142
+                              {\ldots} 
+Fattoria Uccelliera              1
+Château de la Cour d'Argent      1
+Gysler                           1
+Solo                             1
+Ronco del Gnemiz                 1
+Domaine Perraud                  1
+La Coterie                       1
+Poetic Cellars                   1
+Marilyn Merlot                   1
+Domaine Piquemal                 1
+Cottonwood Creek                 1
+Château de Ricaud                1
+Corte Mainente                   1
+Cinzano                          1
+Calamares                        1
+Château Saint-Robert             1
+Domaine du Claouset              1
+Saturday Red                     1
+Caliu                            1
+Anapamu                          1
+Château Pey de Pont              1
+Corte Cariano                    1
+Casa de la Vega                  1
+Potter's Vineyard                1
+Poseidon                         1
+McGah Family                     1
+Vincent Grall                    1
+Gorrebusto                       1
+Domaine Mussy                    1
+Château les Martinelles          1
+Name: winery, Length: 14810, dtype: int64
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
